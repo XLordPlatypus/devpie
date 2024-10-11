@@ -1,0 +1,19 @@
+networks:
+  nginx_default:
+    external: true
+
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      # These ports are in format <host-port>:<container-port>
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+    volumes:
+      - <path/to/containers>/containers/nginx/data:/data
+      - <path/to/containers>/containers/nginx/letsencrypt:/etc/letsencrypt
+    networks:
+      - nginx_default
