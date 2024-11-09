@@ -1,6 +1,5 @@
 # Configuration for Raspberry Homeserver
 
-## Readme
 This is a setup running purely in Docker Containers.
 The only real application running is OneDev. 
 The rest is for managing the containers or security of the raspberry.
