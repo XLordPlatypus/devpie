@@ -1,8 +1,14 @@
+networks:
+  nginx_default:
+    external: true
+
 services:
 
   cells:
     env_file:
       - .env
+    networks:
+      - nginx_default
     image: pydio/cells:latest
     restart: unless-stopped
     ports: ['8080:8080']
@@ -13,10 +19,14 @@ services:
       - ${CONTAINER_DIRECTORY}/pydio/cellsdir:/var/cells
 
   mysql:
+    networks:
+      - nginx_default
     env_file:
       - .env
     image: mysql:5.7
     restart: unless-stopped
+    ports:
+      - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: cells
