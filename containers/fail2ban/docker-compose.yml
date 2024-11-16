@@ -12,5 +12,5 @@ services:
     network_mode: host
     restart: unless-stopped
     volumes:
-      - <path/to/containers>/containers/fail2ban/data:/data
-      - <path/to/containers>/containers/nginx/data/logs:/var/log/npm:ro
+      - ${CONTAINER_DIRECTORY}/fail2ban/data:/data
+      - ${CONTAINER_DIRECTORY}/nginx/data/logs:/var/log/npm:ro

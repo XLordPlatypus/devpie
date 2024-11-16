@@ -1,0 +1,32 @@
+services:
+
+  cells:
+    env_file:
+      - .env
+    image: pydio/cells:latest
+    restart: unless-stopped
+    ports: ['8080:8080']
+    environment:
+      - CELLS_LOG_LEVEL=production
+    volumes:
+      - ${CONTAINER_DIRECTORY}/pydio/data:/var/cells/data
+      - ${CONTAINER_DIRECTORY}/pydio/cellsdir:/var/cells
+
+  mysql:
+    env_file:
+      - .env
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: cells
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+    volumes:
+      - ${CONTAINER_DIRECTORY}/pydio/mysqldir:/var/lib/mysql
+
+volumes:
+  data: {}
+  cellsdir: {}
+  mysqldir: {}

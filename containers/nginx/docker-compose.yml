@@ -4,6 +4,8 @@ networks:
 
 services:
   app:
+    env_file:
+      - .env
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: nginx
     restart: unless-stopped
@@ -13,7 +15,7 @@ services:
       - '443:443' # Public HTTPS Port
       - '81:81' # Admin Web Port
     volumes:
-      - <path/to/containers>/containers/nginx/data:/data
-      - <path/to/containers>/containers/nginx/letsencrypt:/etc/letsencrypt
+      - ${CONTAINER_DIRECTORY}/nginx/data:/data
+      - ${CONTAINER_DIRECTORY}/containers/nginx/letsencrypt:/etc/letsencrypt
     networks:
       - nginx_default
